@@ -9,13 +9,8 @@
         </th>
     </thead>
     <tbody>
-        <tr *ngFor="let data of excelData" >
-            <th>{{data.RollNo}}</th>
-            
-            <td>{{data.Firstname}}</td>
-            
-            <td>{{data.Lastname}}</td>
-            <td>{{data.Age}}</td>
+        <tr *ngFor="let data of excelData">
+            <td *ngFor="let item of data | keyvalue">{{ item.value }}</td>
         </tr>
     </tbody>
 

@@ -3,8 +3,27 @@ import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-excel-component',
-  templateUrl: './excel-component.component.html',
-  styleUrls: ['./excel-component.component.css'],
+  // templateUrl: './excel-component.component.html'
+
+template:`<div>
+<input type="file" (change)="onFileSelected($event)" accept=".xlsx, .xls" />
+<hr>
+
+<div *ngIf="excelData">
+
+    <thead>
+        <th *ngFor="let data of table_headers">
+            <tr>{{data}}</tr>
+        </th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of excelData">
+            <td *ngFor="let item of data | keyvalue">{{ item.value }}</td>
+        </tr>
+    </tbody>
+
+</div>  
+</div>`  
 })
 export class ExcelComponentComponent {
   excelData: any;
@@ -26,8 +45,8 @@ export class ExcelComponentComponent {
       this.excelData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName[0]]);
       console.log('excel data', this.excelData);
       
-      this.table_headers=Object.keys(this.excelData[0])
-      console.log('keys:',Object.keys(this.excelData[0]))
+      this.table_headers=Object.keys(this.excelData[0]).sort()
+      console.log('table_headers:',this.table_headers)
     };
   }
 }
