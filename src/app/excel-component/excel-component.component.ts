@@ -8,6 +8,7 @@ import * as XLSX from 'xlsx';
 })
 export class ExcelComponentComponent {
   excelData: any;
+  table_headers:any;
 
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
@@ -24,6 +25,9 @@ export class ExcelComponentComponent {
 
       this.excelData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName[0]]);
       console.log('excel data', this.excelData);
+      
+      this.table_headers=Object.keys(this.excelData[0])
+      console.log('keys:',Object.keys(this.excelData[0]))
     };
   }
 }
